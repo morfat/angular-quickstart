@@ -5,14 +5,23 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+
+//other modules 
+import {DashboardModule} from './dashboard/dashboard.module';
+import { RouterModule } from '@angular/router';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    DashboardModule,
+    RouterModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
