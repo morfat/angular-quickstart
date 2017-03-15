@@ -10,11 +10,15 @@ import { AppComponent } from './app.component';
 //import other modules 
 import {DashboardModule} from './dashboard/dashboard.module';
 
+//components
+import { HeaderComponent }   from './_navigations/header.component';
+import { SideBarComponent }   from './_navigations/side-bar.component';
+import { FooterComponent }   from './_navigations/footer.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,HeaderComponent,SideBarComponent,FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
     HttpModule,
     DashboardModule,
     RouterModule,
+
 
   ],
   providers: [],
