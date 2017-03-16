@@ -16,6 +16,10 @@ import { HeaderComponent }   from './_navigations/header.component';
 import { SideBarComponent }   from './_navigations/side-bar.component';
 import { FooterComponent }   from './_navigations/footer.component';
 
+//import providers
+
+import {GlobalService} from './_globals/global.service';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +35,7 @@ import { FooterComponent }   from './_navigations/footer.component';
     DashboardModule,
     
   ],
-  providers: [],
+  providers: [GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
