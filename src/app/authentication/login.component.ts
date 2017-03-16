@@ -1,11 +1,12 @@
 import { Component ,OnInit} from '@angular/core';
 import {Auth} from './auth';
-import {GlobalService} from '../_globals/global.service';
+import {AuthenticationService} from './authentication.service';
 
 
 @Component({
   selector: 'login-index',
   templateUrl: './login.component.html',
+  providers:[AuthenticationService,],
   //styleUrls: ['./.component.css']
 })
 export class LoginIndexComponent implements OnInit{
@@ -13,9 +14,9 @@ export class LoginIndexComponent implements OnInit{
   
   auth=new Auth();
 
-constructor(private globalService:GlobalService){}
+constructor(private authenticationService:AuthenticationService){}
   authenticate(){
-  
+   this.authenticationService.login(this.auth);
   }
 
   ngOnInit(){
