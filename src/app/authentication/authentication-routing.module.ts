@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [ RouterModule.forRoot(routes),FormsModule ],
   exports: [ RouterModule ]
 })
-export class LoginRoutingModule {}
+export class AuthenticationRoutingModule {}

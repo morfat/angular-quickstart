@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 
 //import other modules 
 import {DashboardModule} from './dashboard/dashboard.module';
-import {LoginModule} from './login/login.module';
+import {AuthenticationModule} from './authentication/authenticate.module';
 
 //components
 import { HeaderComponent }   from './_navigations/header.component';
@@ -27,7 +27,7 @@ import { FooterComponent }   from './_navigations/footer.component';
     HttpModule,
     RouterModule,
     //app modules . preserve the order so that urls match well 
-    LoginModule,
+    AuthenticationModule,
     DashboardModule,
     
   ],
