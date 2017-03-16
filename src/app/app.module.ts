@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-//import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -27,7 +27,7 @@ import {GlobalService} from './_globals/global.service';
   ],
   imports: [
     BrowserModule,
-    //FormsModule,
+    FormsModule,
     HttpModule,
     RouterModule,
     //app modules . preserve the order so that urls match well 

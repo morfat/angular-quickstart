@@ -15,8 +15,12 @@ export class LoginIndexComponent implements OnInit{
   auth=new Auth();
 
 constructor(private authenticationService:AuthenticationService){}
+
+
+
   authenticate(){
-   this.authenticationService.login(this.auth);
+      this.authenticationService.login(this.auth).subscribe(response=>(this.authenticationService.handleLogin(response)),error=>(error));
+  
   }
 
   ngOnInit(){

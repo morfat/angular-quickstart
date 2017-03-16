@@ -3,12 +3,12 @@ this is globally accessed for data
 */
 
 import {Injectable} from '@angular/core';
-import {User} from '../users/user';
+
 import {Settings} from './settings';
 
 import {Http,Headers,Response,RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/Rx';
 import {Router} from '@angular/router';
 
 
@@ -20,7 +20,7 @@ export class GlobalService{
  constructor(private http: Http,private router:Router){}
 
   /* make global functions here */
-public setUser(user:User){
+public setUser(user:any){
     localStorage.setItem('_'+Settings.APP_NAME+'User', JSON.stringify(user));
 }
 
@@ -28,6 +28,10 @@ public getUser(){
     return JSON.parse(localStorage.getItem('_'+Settings.APP_NAME+'User'));
 }
 
+public navigate(url){
+    //naviagte to url given 
+    this.router.navigate(url)
+}
 
 public getUrl(val){
     //when given sub url, return absolute url for API
