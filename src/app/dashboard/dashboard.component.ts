@@ -15,7 +15,7 @@ export class DashboardIndexComponent implements OnInit {
   constructor(private globalService:GlobalService){}
 
   ngOnInit(){
-    console.log(Settings.BASE_API_URL);
+    console.log(this.globalService.getUser());
   
   }
 

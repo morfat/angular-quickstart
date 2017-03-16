@@ -15,6 +15,7 @@ export class LoginIndexComponent implements OnInit{
 
 constructor(private globalService:GlobalService){}
   authenticate(){
+  
   }
 
   ngOnInit(){
