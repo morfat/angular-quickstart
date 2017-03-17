@@ -29,6 +29,13 @@ public getUser(){
     return JSON.parse(localStorage.getItem('_'+Settings.APP_NAME+'User'));
 }
 
+public clearUser(){
+
+    return localStorage.removeItem('_'+Settings.APP_NAME+'User');
+}
+
+
+
 public navigate(url){
     //naviagte to url given 
     this.router.navigate(url)
@@ -39,19 +46,16 @@ public getUrl(val){
    return Settings.BASE_API_URL+val;
 }
 
-
- logout(){
-
-    }
-
-
     getToken(){
-        return this.getUser().token
+        if(this.getUser()){
+            return this.getUser().token;
+
+        }
         }
         
     
     
-        /* global functions */
+/* global functions */
   
 
   public getOptions(){  //get options, set headers 

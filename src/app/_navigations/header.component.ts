@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {GlobalService} from '../_globals/global.service';
 
 @Component({
   selector: 'header-navigation',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   
 })
 export class HeaderComponent {
+
+    constructor(private globalService:GlobalService){}
+ 
+ 
   title = 'Dashboard';
 }

@@ -24,6 +24,9 @@ constructor(private authenticationService:AuthenticationService){}
   }
 
   ngOnInit(){
+    //clear user storage/ logout 
+    this.authenticationService.logout();
+
 
   }
 

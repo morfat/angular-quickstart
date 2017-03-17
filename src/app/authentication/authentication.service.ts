@@ -18,6 +18,11 @@ export class AuthenticationService{
     
   }
     
+    logout(){
+
+         return this.globalService.clearUser();
+
+    }
 
 handleLogin(response:any){
     //login successful if there's a jwt token in the response

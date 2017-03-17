@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {GlobalService} from '../_globals/global.service';
 
 @Component({
   selector: 'footer-navigation',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   
 })
 export class FooterComponent {
+    constructor(private globalService:GlobalService){}
+ 
  
 }

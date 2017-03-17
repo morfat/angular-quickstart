@@ -1,6 +1,8 @@
-  <footer class="main-footer">
+    <div *ngIf="globalService.getUser()"> <!-- display for logged in users only -->
+    <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.1
     </div>
     <strong>Copyright &copy; 2017 <a href="">AngularQuickStart</a>.</strong> All Rights 
   </footer>
+    </div>

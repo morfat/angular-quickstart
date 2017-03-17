@@ -1,4 +1,5 @@
 
+  <div *ngIf="globalService.getUser()"> <!-- display for logged in users only -->
   <!-- Left side column. contains the sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -17,12 +18,14 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Users </a></li>
-            <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Groups </a></li>
-             <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Permissions </a></li>
+            
+            <li><a [routerLink]="['/users']"><i class="fa fa-circle-o"></i> Users </a></li>
+            <li><a [routerLink]="['/groups']"><i class="fa fa-circle-o"></i> Groups </a></li>
+             <li><a [routerLink]="['/permissions']"><i class="fa fa-circle-o"></i> Permissions </a></li>
           </ul>
         </li>
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
+  </div>

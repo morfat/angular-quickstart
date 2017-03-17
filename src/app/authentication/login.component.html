@@ -1,5 +1,4 @@
 
-<body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
     <a href=""><b>Angular.</b></a>
@@ -8,7 +7,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form name="form" (ngSubmit)="authenticate()" >
+    <form name="form">
      
     
       <div class="form-group has-feedback" [class.has-error]="!email.valid ">
@@ -26,7 +25,7 @@
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="button" (click)="authenticate()" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
@@ -40,5 +39,4 @@
 </div>
 <!-- /.login-box -->
 
-</body>
 
