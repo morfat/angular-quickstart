@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 //import other modules 
 import {DashboardModule} from './dashboard/dashboard.module';
 import {AuthenticationModule} from './authentication/authenticate.module';
+import {GroupModule} from './groups/group.module';
+
 
 //components
 import { HeaderComponent }   from './_navigations/header.component';
@@ -30,9 +32,11 @@ import {GlobalService} from './_globals/global.service';
     FormsModule,
     HttpModule,
     RouterModule,
+    
     //app modules . preserve the order so that urls match well 
     AuthenticationModule,
-    DashboardModule,
+    GroupModule,
+    DashboardModule,//this should be always the last module 
     
   ],
   providers: [GlobalService],
