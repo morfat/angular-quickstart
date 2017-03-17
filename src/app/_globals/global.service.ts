@@ -25,6 +25,7 @@ public setUser(user:any){
 }
 
 public getUser(){
+
     return JSON.parse(localStorage.getItem('_'+Settings.APP_NAME+'User'));
 }
 
@@ -45,6 +46,7 @@ public getUrl(val){
 
 
     getToken(){
+        return this.getUser().token
         }
         
     

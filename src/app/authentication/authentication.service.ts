@@ -23,11 +23,7 @@ handleLogin(response:any){
     //login successful if there's a jwt token in the response
             if (response){
                 //set user to storage
-
                 this.globalService.setUser(response);
-
-                console.log(this.globalService.getUser());
-
                if (!this.globalService.getUser().user.is_password_changed){ 
                    this.globalService.navigate(['/users','change-password']);
                 }else{
