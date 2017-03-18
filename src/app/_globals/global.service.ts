@@ -12,12 +12,35 @@ import 'rxjs/Rx';
 import {Router} from '@angular/router';
 
 
+//needed for iosLoader.. 
+declare var iosOverlay:any; //ios loaders 
+declare var spinner:any;
+
 
 @Injectable()
 export class GlobalService{
 
-
+ 
  constructor(private http: Http,private router:Router){}
+ private iosLoader; //for iosloader 
+
+
+//display loaders
+   private showLoader(message='Processing'){ //display loader for process. can pass custom message 
+   this.hideLoader();
+   this.iosLoader=iosOverlay({
+		text: message,
+		duration: 6e9, //6000 seconds. 100 minutes 
+		spinner: spinner
+	});
+   }
+
+   private  hideLoader(){ //hide loader from view 
+       if(this.iosLoader){
+         this.iosLoader.hide();
+       }
+       
+   }
 
   /* make global functions here */
 public setUser(user:any){
@@ -64,7 +87,7 @@ public getUrl(val){
                                 })});
   }
 
- private extractData(res: Response){ //this alos closes the loaders ios 
+ private extractData(res: Response){ //this alos closes the loaders ios
         let body=res.json(); 
         return body || {};
     }
@@ -77,28 +100,36 @@ public getUrl(val){
         return Observable.throw(error);
     }
 
+
+/** global http methods are called here  */
+//they also start and close the http loaders 
     public get(url:any){
-        return this.http.get(url,this.getOptions()).map(this.extractData).catch(this.handleError);
+        this.showLoader();
+        return this.http.get(url,this.getOptions()).map(this.extractData).catch(this.handleError).finally(this.iosLoader.hide());
     }
   
    public post(url:any,data:any){
+        this.showLoader();
         return this.http.post(url,JSON.stringify(data),this.getOptions()
-        ).map(this.extractData).catch(this.handleError);
+        ).map(this.extractData).catch(this.handleError).finally(this.iosLoader.hide());
    }
          
   public put(url:any,data:any){
+         this.showLoader();
          return this.http.put(url,JSON.stringify(data),this.getOptions()
-        ).map(this.extractData).catch(this.handleError);
+        ).map(this.extractData,).catch(this.handleError).finally(this.iosLoader.hide());
      }
 
 
   public patch(url:any,data:any){
+         this.showLoader();
          return this.http.patch(url,JSON.stringify(data),this.getOptions()
-        ).map(this.extractData).catch(this.handleError);
+        ).map(this.extractData).catch(this.handleError).do(this.iosLoader.hide()).finally(this.iosLoader.hide());
      }
 
  public delete(url:any){
-      return this.http.delete(url,this.getOptions()).catch(this.handleError);
+      this.showLoader();
+      return this.http.delete(url,this.getOptions()).catch(this.handleError).finally(this.iosLoader.hide());
  }
 
 
