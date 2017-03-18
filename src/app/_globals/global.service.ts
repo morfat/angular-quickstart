@@ -15,6 +15,7 @@ import {Router} from '@angular/router';
 //needed for iosLoader.. 
 declare var iosOverlay:any; //ios loaders 
 declare var spinner:any;
+declare var $:any; //this is for jquery 
 
 
 @Injectable()
@@ -22,25 +23,23 @@ export class GlobalService{
 
  
  constructor(private http: Http,private router:Router){}
+ 
  private iosLoader; //for iosloader 
-
 
 //display loaders
    private showLoader(message='Processing'){ //display loader for process. can pass custom message 
-   this.hideLoader();
+   //hide any other loader before displaying this 
+    if(this.iosLoader){
+        this.iosLoader.hide();
+    }
+    //show loader 
    this.iosLoader=iosOverlay({
 		text: message,
-		duration: 6e9, //6000 seconds. 100 minutes 
+		duration: 6e9, //6000 seconds. 100 minutes . because no normal request will take more than 100 minutes to load. 
 		spinner: spinner
 	});
    }
 
-   private  hideLoader(){ //hide loader from view 
-       if(this.iosLoader){
-         this.iosLoader.hide();
-       }
-       
-   }
 
   /* make global functions here */
 public setUser(user:any){
@@ -69,12 +68,11 @@ public getUrl(val){
    return Settings.BASE_API_URL+val;
 }
 
-    getToken(){
-        if(this.getUser()){
-            return this.getUser().token;
-
-        }
-        }
+public getToken(){
+    if(this.getUser()){
+        return this.getUser().token;
+    }
+}
         
     
     
@@ -95,8 +93,8 @@ public getUrl(val){
   public handleError(error:any){
         //display error
         //try see how to remove the below in future 
-        let errMsg=(error.message)? error.message:error.status ?
-        `${error.status}-${error.statusText}`: 'Server Error';  
+        //let errMsg=(error.message)? error.message:error.status ?
+        //`${error.status}-${error.statusText}`: 'Server Error';  
         return Observable.throw(error);
     }
 
