@@ -23,7 +23,12 @@ export class GroupListComponent implements OnInit {
   }
 
   public listGroups(){
-    this.groupService.getAll().subscribe(response=>(this.groups=response.data.results),error=>(error));
+    this.groupService.getAll().subscribe(
+      response=>(this.groups=response.data.results,this.globalService.displayResponseMessage(response)),
+      error=>(this.globalService.displayResponseMessage(error)),
+      ()=>{}
+      );//success,failure,complete
+
   }
 
 }
