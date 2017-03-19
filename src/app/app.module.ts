@@ -13,6 +13,7 @@ import {AuthenticationModule} from './authentication/authenticate.module';
 import {GroupModule} from './groups/group.module';
 
 
+
 //components
 import { HeaderComponent }   from './_navigations/header.component';
 import { SideBarComponent }   from './_navigations/side-bar.component';
@@ -25,14 +26,13 @@ import {GlobalService} from './_globals/global.service';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent,SideBarComponent,FooterComponent
+    AppComponent,HeaderComponent,SideBarComponent,FooterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule,
-    
     //app modules . preserve the order so that urls match well 
     AuthenticationModule,
     GroupModule,

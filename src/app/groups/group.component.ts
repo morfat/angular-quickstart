@@ -17,6 +17,13 @@ export class GroupListComponent implements OnInit {
   //set 
   groups:Group[];
 
+  //needed for pagination 
+  pagination:any;
+  onPagination(results:any){
+    //get results paginated from pagination component 
+    this.groups=results;
+  }
+
   ngOnInit(){
     this.listGroups();
    
@@ -24,7 +31,7 @@ export class GroupListComponent implements OnInit {
 
   public listGroups(){
     this.groupService.getAll().subscribe(
-      response=>(this.groups=response.data.results,this.globalService.displayResponseMessage(response)),//success 
+      response=>(this.groups=response.data.results,this.pagination=response.data.pagination,this.globalService.displayResponseMessage(response)),//success 
       error=>(this.globalService.displayResponseMessage(error)),//failure
       ()=>{}//complete 
       );//success,failure,complete

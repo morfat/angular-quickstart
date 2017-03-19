@@ -5,14 +5,16 @@ import { BrowserModule } from '@angular/platform-browser';
 //components
 import { GroupListComponent }   from './group.component';
 
+import { PaginationComponent }   from '../pagination/pagination.component';
+
 
 const routes: Routes = [
   {path:'groups',component:GroupListComponent},
   ];
 
 @NgModule({
-  declarations:[GroupListComponent],
-  imports: [ RouterModule.forRoot(routes),BrowserModule ],
-  exports: [ RouterModule ]
+  declarations:[GroupListComponent,PaginationComponent],
+  imports: [ RouterModule.forRoot(routes),BrowserModule ,],
+  exports: [ RouterModule,]
 })
 export class GroupRoutingModule {}

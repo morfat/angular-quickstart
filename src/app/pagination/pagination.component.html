@@ -1,0 +1,25 @@
+  <div class="row"></div>
+  <div class="col-md-6 col-md-offset-6">
+
+    <!-- pagelinks -->
+    <nav *ngIf="pagination" aria-label="page navigation" class="pull-right">
+  <ul class="pagination">
+    <li>
+      <a   (click)="getDataByLink(pagination.html_context.previous_url)" 
+      [class.disabled]="true" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li *ngFor="let pl of pagination.html_context.page_links" [class.active]="pl.is_active">
+      <a (click)="getDataByLink(pl.url)">{{pl.number}}</a>
+    </li>
+    
+    <li>
+      <a    (click)="getDataByLink(pagination.html_context.next_url)" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav><!-- .pagelinks -->
+  </div>

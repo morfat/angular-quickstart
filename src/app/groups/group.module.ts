@@ -5,7 +5,7 @@ import {GroupRoutingModule} from './group-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [GroupRoutingModule],
+  imports: [GroupRoutingModule,],
   providers: [],
  // bootstrap: [GroupIndexComponent]
 })
