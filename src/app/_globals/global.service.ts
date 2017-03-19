@@ -43,20 +43,42 @@ export class GlobalService{
    }
 
 
-/*messaging and notifications */
 public  displayResponseMessage(response:any){ //if show is false, no message is displayed. loaders can signifiy successful load.
     //processes response body from the API
     //assumes the standar api structure that appends status to the response body. status can be false,true or 0.
-    if (response.status){
+    if (response.status===true){
         //this is success message. 
          notify("success"," ",response.message);  
     }else if (response.status===0){
          notify("error"," ","Request failed. Please try again. or Check that Server is reachable.");  
     }
-    else if (response.status==false){
+    else if (response.status===false){
          notify("error","  ",response.message);  
     }
-     
+    else if(response.status===500){
+        notify("error"," ","Server Processing Error. Please contact admin if this persists.");  
+    }
+    else if(response.status===401){//token expired. 
+        notify("warning"," ","Session Expired. Please login again.");
+        this.router.navigate([Settings.APP_LOGIN_URL]);
+
+    }
+    
+    else if(response.status===400){//incorrect  json data format posted. 
+           let  data = JSON.parse(response._body);
+           let message=" ";
+           if (data.message){message = message + data.message}
+           if (data.data){data=data.data;}
+           for (let d of Object.keys(data).map((key)=>data[key]))
+           {
+               if (d.toString().length>1){
+                    message = message + "<br>"+d;
+               }else{
+                   message = message + "<br>"+d[0];
+               }    
+           }
+        notify("error"," ",message);
+    }   
 }
 
 

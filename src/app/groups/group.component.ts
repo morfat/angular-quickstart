@@ -24,9 +24,9 @@ export class GroupListComponent implements OnInit {
 
   public listGroups(){
     this.groupService.getAll().subscribe(
-      response=>(this.groups=response.data.results,this.globalService.displayResponseMessage(response)),
-      error=>(this.globalService.displayResponseMessage(error)),
-      ()=>{}
+      response=>(this.groups=response.data.results,this.globalService.displayResponseMessage(response)),//success 
+      error=>(this.globalService.displayResponseMessage(error)),//failure
+      ()=>{}//complete 
       );//success,failure,complete
 
   }

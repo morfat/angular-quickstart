@@ -1,7 +1,7 @@
 import { Component ,OnInit} from '@angular/core';
 import {Auth} from './auth';
 import {AuthenticationService} from './authentication.service';
-
+import {GlobalService} from '../_globals/global.service';
 
 @Component({
   selector: 'login-index',
@@ -14,12 +14,14 @@ export class LoginIndexComponent implements OnInit{
   
   auth=new Auth();
 
-constructor(private authenticationService:AuthenticationService){}
+constructor(private authenticationService:AuthenticationService,private globalService:GlobalService){}
 
 
 
   authenticate(){
-      this.authenticationService.login(this.auth).subscribe(response=>(this.authenticationService.handleLogin(response)),error=>(error));
+      this.authenticationService.login(this.auth).subscribe(
+        response=>(this.authenticationService.handleLogin(response)),
+        error=>(this.globalService.displayResponseMessage(error)));
   
   }
 
