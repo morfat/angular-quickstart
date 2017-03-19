@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {AuthenticationModule} from './authentication/authenticate.module';
 import {GroupModule} from './groups/group.module';
-
+import {UserModule} from './users/user.module';
+import {PaginationModule} from './pagination/pagination.module';
 
 
 //components
@@ -33,9 +34,11 @@ import {GlobalService} from './_globals/global.service';
     FormsModule,
     HttpModule,
     RouterModule,
+   // PaginationModule,
     //app modules . preserve the order so that urls match well 
     AuthenticationModule,
     GroupModule,
+    UserModule,
     DashboardModule,//this should be always the last module 
     
   ],

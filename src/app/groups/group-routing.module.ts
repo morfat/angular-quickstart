@@ -5,7 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 //components
 import { GroupListComponent }   from './group.component';
 
-import { PaginationComponent }   from '../pagination/pagination.component';
+//import { PaginationComponent }   from '../pagination/pagination.component';
+import { PaginationModule }   from '../pagination/pagination.module';
 
 
 const routes: Routes = [
@@ -13,8 +14,8 @@ const routes: Routes = [
   ];
 
 @NgModule({
-  declarations:[GroupListComponent,PaginationComponent],
-  imports: [ RouterModule.forRoot(routes),BrowserModule ,],
+  declarations:[GroupListComponent,],
+  imports: [RouterModule.forRoot(routes),BrowserModule , PaginationModule,],
   exports: [ RouterModule,]
 })
 export class GroupRoutingModule {}

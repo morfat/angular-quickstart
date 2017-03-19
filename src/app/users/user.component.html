@@ -1,0 +1,57 @@
+<div class="wrapper">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Users
+      </h1>
+   
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-body">
+
+
+         <table  class="table">
+        
+          <thead> <tr><th>Name</th></tr></thead>
+          
+           <tbody>
+              <tr *ngFor="let u of users">
+                <td>{{u.first_name}}</td>
+                </tr>
+           </tbody>
+           
+
+         </table>
+
+<!-- pagination -->
+
+<pagination-component [pagination]="pagination" (onPagination)="onPagination($event)"></pagination-component>
+
+<!--./pagination -->
+
+
+        </div>
+        <!-- /.box-body -->
+        
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</div>
+
+
+
+
+
