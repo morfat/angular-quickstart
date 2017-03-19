@@ -4,9 +4,9 @@
     <!-- pagelinks -->
     <nav *ngIf="pagination" aria-label="page navigation" class="pull-right">
   <ul class="pagination">
-    <li>
-      <a   (click)="getDataByLink(pagination.html_context.previous_url)" 
-      [class.disabled]="true" aria-label="Previous">
+    <li [class.disabled]="!pagination.html_context.previous_url"  (click)="getDataByLink(pagination.html_context.previous_url)" >
+      <a  
+         aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -15,8 +15,8 @@
       <a (click)="getDataByLink(pl.url)">{{pl.number}}</a>
     </li>
     
-    <li>
-      <a    (click)="getDataByLink(pagination.html_context.next_url)" aria-label="Next">
+    <li  [class.disabled]="!pagination.html_context.next_url" (click)="getDataByLink(pagination.html_context.next_url)">
+      <a   aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
