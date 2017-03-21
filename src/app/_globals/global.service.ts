@@ -79,14 +79,30 @@ public  displayResponseMessage(response:any){ //if show is false, no message is 
            let message=" ";
            if (data.message){message = message + data.message}
            if (data.data){data=data.data;}
+
+
+
+           for (let key in data) {
+                   let value = data[key];
+                console.log(data,key,value);
+
+                  message = message + "<br>: "+key.replace('_'," ").toUpperCase()+"=> "+value;
+
+
+              }
+
+/*
            for (let d of Object.keys(data).map((key)=>data[key]))
            {
                if (d.toString().length>1){
                     message = message + "<br>"+d;
                }else{
                    message = message + "<br>"+d[0];
-               }    
+               }   
+               console.log(data,d); 
            }
+           */
+
         notify("error"," ",message);
     }   
 }

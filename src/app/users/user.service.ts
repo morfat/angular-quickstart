@@ -16,6 +16,21 @@ getAll():Observable<any>{
     return this.globalService.get(this.userUrl);
    }
 
+create(user):Observable<any>{
+    return this.globalService.post(this.userUrl,user);
+   }
+
+edit(selectedUser):Observable<any>{
+    
+    let url=`${this.userUrl}${selectedUser.id}/`;
+
+    return this.globalService.put(url,selectedUser);
+   }
+
+resetPassword(email):Observable<any>{
+    let url=`${this.userUrl}reset-password/`;
+    return this.globalService.post(url,{'email':email});
+   }
 
        
 }

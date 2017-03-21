@@ -12,12 +12,17 @@ export class User{
       is_active:boolean;
       is_superuser:boolean;
       is_staff:boolean;
+      password:string;
+      created_by:string;
 
       permissions:any;
+      //user_type:any;
       id:any;
 
     
     
     }
 
-     
+/*export class UserType{
+  constructor( public id:number,public name:string){}
+}*/
