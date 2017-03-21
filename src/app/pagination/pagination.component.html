@@ -1,5 +1,15 @@
   <div class="row"></div>
-  <div class="col-md-6 col-md-offset-6">
+
+   <div class="col-md-6 ">
+     <nav *ngIf="pagination" aria-label="page navigation">
+  <ul class="pagination">
+     <p>Showing {{pagination.start_index}} to {{pagination.end_index}} of {{pagination.count}} Results.</p>
+  </ul>
+     </nav>
+
+   </div>
+
+  <div class="col-md-6 ">
 
     <!-- pagelinks -->
     <nav *ngIf="pagination" aria-label="page navigation" class="pull-right">
@@ -23,3 +33,5 @@
   </ul>
 </nav><!-- .pagelinks -->
   </div>
+
+
