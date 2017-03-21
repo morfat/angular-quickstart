@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 //needed for iosLoader.. 
 declare var iosOverlay:any; //ios loaders 
 declare var spinner:any;
-declare var $:any; //this is for jquery 
+declare var jQuery:any; //this is for jquery 
 
 declare var notify:any; //notify(message_type,message_heading,message_content) as  message notifications plugin
 
@@ -28,6 +28,16 @@ export class GlobalService{
  
  private iosLoader; //for iosloader 
 
+
+//display and hide modals
+public showModal(identifier){
+    jQuery(identifier).modal("show");
+}
+
+public hideModal(identifier){
+     jQuery(identifier).modal("hide");
+
+}
 //display loaders
    private showLoader(message='Processing'){ //display loader for process. can pass custom message 
    //hide any other loader before displaying this 

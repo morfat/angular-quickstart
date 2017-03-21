@@ -4,7 +4,7 @@ export class User{
       last_login: any;
       date_joined:any;
       first_name:string;
-      las_name:string;
+      last_name:string;
       phone_number:any;
       email:string;
       is_email_verified:boolean;

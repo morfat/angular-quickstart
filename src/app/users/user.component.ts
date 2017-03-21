@@ -10,12 +10,17 @@ import {User} from './user';
   templateUrl: './user.component.html',
   providers:[UserService,],
   //styleUrls: ['./.component.css']
+  //styles:[` .selected {
+   // background-color: #337ab7 !important;
+    //color: white;}`],
 })
 export class UserListComponent implements OnInit {
  
   constructor(private globalService:GlobalService,private userService:UserService){}
   //set 
   users:User[];
+  user=new User();
+  private selectedUser=null;
 
   //needed for pagination 
   pagination:any;
@@ -36,6 +41,10 @@ export class UserListComponent implements OnInit {
       ()=>{}//complete 
       );//success,failure,complete
 
+  }
+
+  private  onSelectUser(u){
+    this.selectedUser=u;
   }
 
 }
