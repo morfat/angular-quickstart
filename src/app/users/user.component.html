@@ -35,6 +35,12 @@
 	(click)="globalService.showModal('#resetUserPasswordModal');">
 	Reset Password
 	</button>
+
+  	<button [disabled]="!selectedUser" class="btn btn-danger"
+	(click)="globalService.showModal('#deleteUserModal');">
+	Delete
+	</button>
+
 </div>
 
 </div>
@@ -359,4 +365,39 @@
 </div>
 </div>
 <!-- ./ reset pasword modal -->
+
+
+
+<!--  delete user  modal -->
+<div *ngIf="selectedUser">
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="close" 
+        data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        
+        <h4 class="modal-title" > Delete  ?.</h4>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="deleteUser()">
+        
+        <p>You are about to delete  {{selectedUser.first_name}} . 
+        </p>
+        	<button type="submit" class="btn btn-danger btn-block"
+        >Yes,Delete  .</button>
+        
+        </form>
+
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+</div>
+<!-- ./ delete user  modal -->
 

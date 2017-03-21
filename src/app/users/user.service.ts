@@ -27,6 +27,12 @@ edit(selectedUser):Observable<any>{
     return this.globalService.put(url,selectedUser);
    }
 
+
+delete(selectedUser):Observable<any>{
+    let url=`${this.userUrl}${selectedUser.id}/`;
+    return this.globalService.delete(url);
+   }
+
 resetPassword(email):Observable<any>{
     let url=`${this.userUrl}reset-password/`;
     return this.globalService.post(url,{'email':email});

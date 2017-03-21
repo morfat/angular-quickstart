@@ -86,5 +86,16 @@ export class UserListComponent implements OnInit {
   }
 
 
+   private deleteUser(){
+    this.userService.delete(this.selectedUser).subscribe(
+      response=>(this.globalService.hideModal("#deleteUserModal"),this.listUsers()),//success 
+      error=>(this.globalService.displayResponseMessage(error)),//failure
+      ()=>{}//complete 
+      );//success,failure,complete;
+    
+  }
+
+
+
 
 }
