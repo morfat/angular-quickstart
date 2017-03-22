@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {AuthenticationModule} from './authentication/authenticate.module';
 import {GroupModule} from './groups/group.module';
+import {ContentTypeModule} from './content_types/content_type.module';
+
 import {UserModule} from './users/user.module';
 import {PaginationModule} from './pagination/pagination.module';
 
@@ -39,6 +41,7 @@ import {GlobalService} from './_globals/global.service';
     AuthenticationModule,
     GroupModule,
     UserModule,
+    ContentTypeModule,
     DashboardModule,//this should be always the last module 
     
   ],

@@ -1,0 +1,240 @@
+<div class="wrapper">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Permission Groups </h1>
+    </section>
+   <section class="content">
+     <div class="row">
+     <div class="box">
+      <div class="box-header">
+       <h3 class="box-title">List All</h3>
+       </div>
+    <!-- /.box-header -->
+            
+<div class="box-body">
+
+<!--actions -->
+<div class="row">
+<!-- btns -->
+	<div class="col-md-5">
+	
+		
+	<button class="btn btn-primary" 
+	(click)="showCreateGroupModal()"
+	[disabled]="selectedAclGroup" >
+	Create
+	</button>
+
+	<button [disabled]="!selectedGroup" class="btn btn-info"
+	(click)="showEditGroupModal()" >
+	Edit
+	</button>
+	
+	<button [disabled]="!selectedGroup"  class="btn btn-danger"
+	(click)="showDeleteGroupModal()" >
+	Delete
+	</button>
+
+</div>
+
+<!-- ./btns -->
+
+<!-- ./btns -->
+
+
+
+  <!-- pagination -->
+
+
+<div class="col-md-3">
+
+</div>
+
+
+
+  <!-- ./pagination -->
+
+
+</div>
+  <!-- ./actions -->
+ 
+ <!-- hr -->
+ <div class="row"><div class="col-md-12"><hr></div></div>
+
+
+  <div class="table-responsive">
+						<table class="table  table-condensed table-bordered">
+              <thead><tr>
+                
+                <th>Name</th>
+                <!--<th></th>
+                <th></th>-->
+
+                
+                </tr></thead>
+						  	<tbody>
+						  
+
+					
+								<tr *ngFor="let g of groups" (click)="onSelectGroup(g)"
+								[class.selected]="g == selectedGroup">
+									<td>{{g.name}}</td>
+                 
+            <!--      <td>
+      <a [routerLink]="['/acl-groups',b.id,'permissions']" class="btn btn-sm btn-primary">Permissions</a>
+      </td>
+
+    <td><a [routerLink]="['/acl-groups',b.id,'users']" class="btn btn-default btn-sm">
+                 Users </a>
+                 
+                 </td>-->
+
+
+								</tr>
+							</tbody>
+						</table>
+						<!-- ./display uusinesss -->
+
+
+	</div><!-- table responsive -->
+<!-- pagination -->
+
+<pagination-component [pagination]="pagination" (onPagination)="onPagination($event)"></pagination-component>
+
+<!--./pagination -->
+<!-- hr -->
+ <div class="row"><div class="col-md-12"><hr></div></div>
+
+
+     </div>
+</div></div>
+     </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- ./wrapper -->
+
+
+
+
+<!-- MODALS -->
+
+<!-- create group modal -->
+<div class="modal fade" id="createGroupModal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="close" 
+        data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        
+        <h4 class="modal-title" > Create Group </h4>
+      </div>
+      <div class="modal-body">
+      
+      <form class="form" (ngSubmit)="createGroup()" #groupCreateForm="ngForm">
+        <div class="form-group" [class.has-success]="group.name" > 
+          <label>Name:</label>
+          <input class="form-control" type="text" name="name" 
+          [(ngModel)]="group.name" placeholder="Name" #name="ngModel" required  >
+        <div [hidden]="name.valid || name.pristine" 
+           class="alert alert-danger"> Name is Required 
+        </div>
+        </div>     
+        <div class="form-group">
+          <button class="btn btn-primary btn-block"  [disabled]="!groupCreateForm.form.valid" type="submit">Save</button>
+        </div>
+
+      </form>
+
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!--./ create group modal -->
+
+<!-- edit group modal -->
+<div *ngIf="selectedGroup" class="modal fade" id="editGroupModal"  role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="close" 
+        data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        
+        <h4 class="modal-title" > Edit  Group </h4>
+      </div>
+      <div class="modal-body">
+      
+      <form class="form" (ngSubmit)="editGroup()" #groupEditForm="ngForm">
+
+        <div class="form-group" [class.has-success]="selectedGroup.name" > 
+          <label>Name:</label>
+          <input class="form-control" type="text" name="name" 
+          [(ngModel)]="selectedGroup.name" placeholder="Name" #name="ngModel" required  >
+        <div [hidden]="name.valid || name.pristine" 
+           class="alert alert-danger"> Name is Required 
+        </div>
+
+        </div>
+
+     
+        <div class="form-group">
+          <button class="btn btn-primary btn-block"  [disabled]="!groupEditForm.form.valid" type="submit">Save</button>
+        </div>
+
+      </form>
+
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!--./ edit  group modal -->
+
+
+
+<!--  delete group  modal -->
+<div *ngIf="selectedGroup">
+<div class="modal fade" id="deleteGroupModal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="close" 
+        data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        
+        <h4 class="modal-title" > Delete  ?.</h4>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="deleteGroup()">
+        
+        <p>You are about to delete  {{selectedGroup.name}} . 
+        </p>
+        	<button type="submit" class="btn btn-danger btn-block"
+        >Yes,Delete  .</button>
+        
+        </form>
+
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+</div>
+<!-- ./ delete group  modal -->
