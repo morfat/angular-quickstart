@@ -2,44 +2,59 @@ import { Component ,OnInit} from '@angular/core';
 import {GlobalService} from '../_globals/global.service';
 import {Settings} from '../_globals/settings';
 
-import {GroupService} from './group.service';
-import {Group} from './group';
+import {PermissionService} from './permission.service';
+import {ContentTypeService} from '../content_types/content_type.service';
+import {Permission} from './permission';
 
 @Component({
-  selector: 'group-index',
-  templateUrl: './group.component.html',
-  providers:[GroupService,],
+  selector: 'permission-index',
+  templateUrl: './permission.component.html',
+  providers:[PermissionService,ContentTypeService],
   //styleUrls: ['./.component.css']
 })
-export class GroupListComponent implements OnInit {
+export class PermissionListComponent implements OnInit {
  
-  constructor(private globalService:GlobalService,private groupService:GroupService){}
+  constructor(private globalService:GlobalService,
+              private permissionService:PermissionService,
+              private contentTypeService:ContentTypeService){}
   //set 
-  groups:Group[];
-  group=new Group();
-  selectedGroup=null;
+  permissions:Permission[];
+  permission=new Permission();
+  selectedPermission=null;
+  contentTypes=null;
+
 
   //needed for pagination 
   pagination:any;
   onPagination(results:any){
     //get results paginated from pagination component 
-    this.groups=results;
+    this.permissions=results;
   }
 
   ngOnInit(){
-    this.listGroups();
+   
+    this.listContentTypes();
+
+    // this.listPermissions();
    
   }
 
-   private  onSelectGroup(g){
-    this.selectedGroup=g;
+   private  onSelectPermission(g){
+    this.selectedPermission=g;
   }
 
 
+protected getContentType(content_type_id){
+  //get from listed content types 
+  
+  let ct=this.contentTypes.filter(ct=>ct.id===content_type_id)[0];
+  //console.log(this.contentTypes.filter(ct=>ct.id===content_type_id));
+  return ct.app_label+'.'+ct.model;
+}
 
-  public listGroups(){
-    this.groupService.getAll().subscribe(
-      response=>(this.groups=response.data.results,this.pagination=response.data.pagination,this.globalService.displayResponseMessage(response)),//success 
+  public listPermissions(){
+    this.permissionService.getAll().subscribe(
+      response=>(this.permissions=response.data.results,this.pagination=response.data.pagination,this.globalService.displayResponseMessage(response)),//success 
       error=>(this.globalService.displayResponseMessage(error)),//failure
       ()=>{}//complete 
       );//success,failure,complete
@@ -48,13 +63,12 @@ export class GroupListComponent implements OnInit {
 
 
 
-  private createGroup(){
-    console.log(this.group);
 
-    
-   
-    this.groupService.create(this.group).subscribe(
-      response=>(this.globalService.hideModal("#createGroupModal"),this.listGroups()),//success 
+  private createPermission(){
+    console.log(this.permission);
+
+    this.permissionService.create(this.permission).subscribe(
+      response=>(this.globalService.hideModal("#createPermissionModal"),this.listPermissions()),//success 
       error=>(this.globalService.displayResponseMessage(error)),//failure
       ()=>{}//complete 
       );//success,failure,complete;
@@ -64,9 +78,9 @@ export class GroupListComponent implements OnInit {
 
  
 
-  private editGroup(){
-    this.groupService.edit(this.selectedGroup).subscribe(
-      response=>(this.globalService.hideModal("#editGroupModal"),this.globalService.displayResponseMessage(response)),//success 
+  private editPermission(){
+    this.permissionService.edit(this.selectedPermission).subscribe(
+      response=>(this.globalService.hideModal("#editPermissionModal"),this.globalService.displayResponseMessage(response)),//success 
       error=>(this.globalService.displayResponseMessage(error)),//failure
       ()=>{}//complete 
       );//success,failure,complete;
@@ -74,14 +88,27 @@ export class GroupListComponent implements OnInit {
   }
 
 
-   private deleteGroup(){
-    this.groupService.delete(this.selectedGroup).subscribe(
-      response=>(this.globalService.hideModal("#deleteGroupModal"),this.listGroups()),//success 
+   private deletePermission(){
+    this.permissionService.delete(this.selectedPermission).subscribe(
+      response=>(this.globalService.hideModal("#deletePermissionModal"),this.listPermissions()),//success 
       error=>(this.globalService.displayResponseMessage(error)),//failure
       ()=>{}//complete 
       );//success,failure,complete;
     
   }
+
+
+
+  public listContentTypes(){
+    //also list permissions after content types has loaded 
+    this.contentTypeService.getAll().subscribe(
+      response=>(this.contentTypes=response.data.results,this.listPermissions()),//success 
+      error=>(this.globalService.displayResponseMessage(error)),//failure
+      ()=>{}//complete 
+      );//success,failure,complete
+
+  }
+
   
 
 }

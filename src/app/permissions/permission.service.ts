@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
 import {GlobalService} from '../_globals/global.service';
-//import {Group} from './group';
+//import {Permission} from './permission';
 
 import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
-export class GroupService{
+export class PermissionService{
     constructor(private globalService:GlobalService){}
-    private groupUrl=this.globalService.getUrl('/groups/');
+    private permissionUrl=this.globalService.getUrl('/permissions/');
 
   
 
 getAll():Observable<any>{
-    return this.globalService.get(this.groupUrl);
+    return this.globalService.get(this.permissionUrl);
    }
 
-create(group):Observable<any>{
-    return this.globalService.post(this.groupUrl,group);
+create(permission):Observable<any>{
+    return this.globalService.post(this.permissionUrl,permission);
    }
 
-edit(selectedGroup):Observable<any>{
+edit(selectedPermission):Observable<any>{
     
-    let url=`${this.groupUrl}${selectedGroup.id}/`;
+    let url=`${this.permissionUrl}${selectedPermission.id}/`;
 
-    return this.globalService.put(url,selectedGroup);
+    return this.globalService.put(url,selectedPermission);
    }
 
 
-delete(selectedGroup):Observable<any>{
-    let url=`${this.groupUrl}${selectedGroup.id}/`;
+delete(selectedPermission):Observable<any>{
+    let url=`${this.permissionUrl}${selectedPermission.id}/`;
     return this.globalService.delete(url);
    }
 

@@ -12,9 +12,9 @@ import {DashboardModule} from './dashboard/dashboard.module';
 import {AuthenticationModule} from './authentication/authenticate.module';
 import {GroupModule} from './groups/group.module';
 import {ContentTypeModule} from './content_types/content_type.module';
-
 import {UserModule} from './users/user.module';
 import {PaginationModule} from './pagination/pagination.module';
+import {PermissionModule} from './permissions/permission.module';
 
 
 //components
@@ -23,7 +23,6 @@ import { SideBarComponent }   from './_navigations/side-bar.component';
 import { FooterComponent }   from './_navigations/footer.component';
 
 //import providers
-
 import {GlobalService} from './_globals/global.service';
 
 
@@ -42,6 +41,7 @@ import {GlobalService} from './_globals/global.service';
     GroupModule,
     UserModule,
     ContentTypeModule,
+    PermissionModule,
     DashboardModule,//this should be always the last module 
     
   ],

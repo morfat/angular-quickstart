@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 //routing
-import {GroupRoutingModule} from './group-routing.module';
+import {PermissionRoutingModule} from './permission-routing.module';
 
 
 @NgModule({
   declarations: [],
-  imports: [GroupRoutingModule,],
+  imports: [PermissionRoutingModule,],
   providers: [],
- // bootstrap: [GroupIndexComponent]
+ // bootstrap: [PermissionIndexComponent]
 })
-export class GroupModule { }
+export class PermissionModule { }
