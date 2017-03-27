@@ -1,50 +1,4 @@
-import { Injectable } from '@angular/core';
-import {GlobalService} from '../_globals/global.service';
-//import {Group} from './group';
-
-import {Observable} from 'rxjs/Observable';
-
-
-@Injectable()
-export class GroupService{
-    constructor(private globalService:GlobalService){}
-    private groupUrl=this.globalService.getUrl('/groups/');
-
-  
-
-getAll():Observable<any>{
-    return this.globalService.get(this.groupUrl);
-   }
-
-create(group):Observable<any>{
-    return this.globalService.post(this.groupUrl,group);
-   }
-
-edit(selectedGroup):Observable<any>{
-    
-    let url=`${this.groupUrl}${selectedGroup.id}/`;
-
-    return this.globalService.put(url,selectedGroup);
-   }
-
-
-delete(selectedGroup):Observable<any>{
-    let url=`${this.groupUrl}${selectedGroup.id}/`;
-    return this.globalService.delete(url);
-   }
-
- manageUsers(action:any,groupId:any,userId:any){ //add or remove users form group 
-        let url=`${this.groupUrl}manage-users/`;
-       
-        return this.globalService.post(url,{'action':action,'group':groupId,'user':userId});
-    }
-
-
-       
-}
-
-
-/*import {Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http,Response,Headers,RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -102,4 +56,3 @@ export class AclGroupService {
 
 
     }
-*/

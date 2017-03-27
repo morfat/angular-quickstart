@@ -3,18 +3,17 @@ import {Component,OnInit } from '@angular/core';
 //Add the RxJS Observable operators we need in this app
 import '../rxjs-operators';
 
-import {AclGroup,AclPermission,Employee} from './group';
+import {Group} from './group';
+import {Permission} from '../permissions/permission';
+
 import {Observable} from 'rxjs/Rx';
-import {AclGroupService} from './group.service';
+import {GroupService} from './group.service';
 import {UserService} from '../users/user.service';
 import {User} from '../users/user';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { GlobalService } from '../_globals/global.service';
 import {Router,ActivatedRoute,Params} from '@angular/router';
 import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-
-declare var jQuery:any;
-declare var notify:any; //notify(message_type,message_heading,message_content)
 
 
 
@@ -26,23 +25,19 @@ declare var notify:any; //notify(message_type,message_heading,message_content)
     color: white;}`
         ],
     templateUrl:'group-users.component.html',
-    providers:[AclGroupService,UserService,AuthenticationService]
+    providers:[GroupService,UserService,GlobalService]
     })
 export class GroupUsersComponent implements OnInit {
-    aclGroup=new AclGroup()
-     users:User[];
-     employees:Employee[];
-     employee=new Employee();
+    group=new Group();
+    users:User[];
+    staffs:User[];
+    user=new User();
+    selectedUser=null;
+    group_id=null;
 
-   
-   selectedUser=null;
-   groupId=null;
-  
-
-  
-    constructor(private aclGroupService:AclGroupService,
+    constructor(private groupService:GroupService,
                 private userService:UserService,
-                private authenticationService:AuthenticationService,
+                private globalService:GlobalService,
                 private router:Router,
                 private location:Location,
                 private route:ActivatedRoute){}
@@ -50,74 +45,52 @@ export class GroupUsersComponent implements OnInit {
 
       ngOnInit(){  
           //get permissions 
-          let group_id:any;
-          
-          this.route.params.subscribe((params: Params) => {group_id=params['id']});
-          
-          this.aclGroup.id=group_id;
-          this.getUsers(group_id);
-          this.getEmployees();
-          this.groupId=group_id;
-
-
-
+          this.route.params.subscribe((params: Params) => {this.group_id=params['id']});
+          //this.group.id=group_id;
+          this.getUsers();
+          this.getStaffs();
+          //this.groupId=group_id;
       }
 
-getEmployees(){
-    //return only jhl users 
-     this.authenticationService.showLoader();
-
-        this.userService.getEmployees().subscribe(
-        response=>(this.employees=response.data.results,this.authenticationService.displaySuccessMessage(response)),
-        error=> (this.authenticationService.displayErrors(error))
-           );
+getStaffs(){
+    
+        this.userService.getAllStaff().subscribe(
+        response=>(this.staffs=response.data.results),
+        error=> (error));
         }
 
-getUsers(group:any){
-        this.userService.getGroupUsers(group).subscribe(
+getUsers(){
+        this.userService.getAllByGroup(this.group_id).subscribe(
         response=>(this.users=response.data.results),
-        error=> (this.authenticationService.displayErrors(error))
+        error=> ((error))
            );
         }
 
 
-   //jquery
-    showAddUserModal(){
-        jQuery("#addUserModal").modal("show");
-        }
+
     
    onSelectUser(user:any){
        this.selectedUser=user;
    }
     
-    //jquery
-    showRemoveUserModal(){
-        jQuery("#removeUserModal").modal("show");
-        }
+ 
 
-
-onAddUser(){
-     this.authenticationService.showLoader();
-      
-        this.aclGroupService.addUser(this.groupId,this.employee.id).subscribe(
-        response=>(this.getUsers(this.groupId),
-         jQuery("#addUserModal").modal("hide"),
-        this.authenticationService.displaySuccessMessage(response)),
-         error=> (this.authenticationService.displayErrors(error))
+addUser(){
+    
+        this.groupService.manageUsers(1,this.group_id,this.user.id).subscribe(
+        response=>(this.globalService.hideModal("#addUserModal"),this.getUsers()),
+         error=> (this.globalService.displayResponseMessage(error))
          );
         
-    }
- 
-      onRemoveUser(){
-           this.authenticationService.showLoader();
-        //delete selected item
-        this.aclGroupService.removeUser(this.groupId,this.selectedUser.id).subscribe(
-        (response)=>(this.getUsers(this.groupId),jQuery("#removeUserModal").modal("hide"),
-        this.authenticationService.displaySuccessMessage(response)),
-            error=> (this.authenticationService.displayErrors(error))
-        );
-        
-        }
+}
+
+removeUser(){
+          this.groupService.manageUsers(2,this.group_id,this.user.id).subscribe(
+        response=>(this.globalService.hideModal("#removeUserModal"),this.getUsers()),
+         error=> (this.globalService.displayResponseMessage(error))
+         );
+}
+
 
 
     goBack():void{

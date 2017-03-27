@@ -13,8 +13,20 @@ export class UserService{
   
 
 getAll():Observable<any>{
+    
     return this.globalService.get(this.userUrl);
    }
+
+getAllStaff():Observable<any>{
+    let url=`${this.userUrl}?is_staff=1`;
+    return this.globalService.get(url);
+   }
+
+getAllByGroup(groupId):Observable<any>{
+    let url=`${this.userUrl}?groups=${groupId}`;
+    return this.globalService.get(url);
+   }
+
 
 create(user):Observable<any>{
     return this.globalService.post(this.userUrl,user);
