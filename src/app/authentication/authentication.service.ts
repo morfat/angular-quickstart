@@ -30,7 +30,7 @@ handleLogin(response:any){
                 //set user to storage
                 this.globalService.setUser(response);
                if (!this.globalService.getUser().user.is_password_changed){ 
-                   this.globalService.navigate(['/users','change-password']);
+                   this.globalService.navigate(['/change-password']);
                 }else{
                       this.globalService.navigate(['/dashboard']);
                 }
