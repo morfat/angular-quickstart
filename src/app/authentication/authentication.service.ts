@@ -29,9 +29,16 @@ handleLogin(response:any){
             if (response){
                 //set user to storage
                 this.globalService.setUser(response);
-               if (!this.globalService.getUser().user.is_password_changed){ 
+               
+               if (!this.globalService.getUser().user.is_staff || !this.globalService.getUser().user.is_superuser){ 
+                   this.globalService.clearUser();
+                   this.globalService.navigate(['/login']);
+                }
+
+               else if (!this.globalService.getUser().user.is_password_changed){ 
                    this.globalService.navigate(['/change-password']);
-                }else{
+                }
+                else{
                       this.globalService.navigate(['/dashboard']);
                 }
             }
