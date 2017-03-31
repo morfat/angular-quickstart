@@ -8,14 +8,16 @@ import { UserListComponent }   from './user.component';
 import { PaginationModule }   from '../pagination/pagination.module';
 import { ChangePasswordComponent }   from './change-password.component';
 
+import { ResetPasswordComponent }   from './reset-password.component';
 
 const routes: Routes = [
   {path:'users',component:UserListComponent},
    {path:'change-password',component:ChangePasswordComponent},
+    {path:'reset-password',component:ResetPasswordComponent},
   ];
 
 @NgModule({
-  declarations:[UserListComponent,ChangePasswordComponent,],
+  declarations:[UserListComponent,ChangePasswordComponent,ResetPasswordComponent],
   imports: [ RouterModule.forRoot(routes),BrowserModule , PaginationModule,FormsModule],
   exports: [ RouterModule,]
 })

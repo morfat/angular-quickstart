@@ -7,7 +7,7 @@ import {UserService} from '../users/user.service';
 
 @Component({
     templateUrl:'change-password.component.html',
-    providers:[UserService,GlobalService],
+    providers:[UserService],
     })
 export class ChangePasswordComponent implements OnInit{
     
