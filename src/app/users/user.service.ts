@@ -50,5 +50,13 @@ resetPassword(email):Observable<any>{
     return this.globalService.post(url,{'email':email});
    }
 
+
+changePassword(user):Observable<any>{
+      //login to api.
+      let url=`${this.userUrl}change-password/`;
+      return this.globalService.post(url,user);
+    
+  }
+
        
 }

@@ -6,14 +6,16 @@ import { FormsModule } from '@angular/forms';
 import { UserListComponent }   from './user.component';
 
 import { PaginationModule }   from '../pagination/pagination.module';
+import { ChangePasswordComponent }   from './change-password.component';
 
 
 const routes: Routes = [
   {path:'users',component:UserListComponent},
+   {path:'change-password',component:ChangePasswordComponent},
   ];
 
 @NgModule({
-  declarations:[UserListComponent,],
+  declarations:[UserListComponent,ChangePasswordComponent,],
   imports: [ RouterModule.forRoot(routes),BrowserModule , PaginationModule,FormsModule],
   exports: [ RouterModule,]
 })

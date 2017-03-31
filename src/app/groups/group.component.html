@@ -44,7 +44,7 @@
          <table  class="table">
         
           <thead> <tr><th>Name</th><th></th>
-          <th></th>
+          
           </tr></thead>
           
            <tbody>
@@ -52,8 +52,13 @@
                 <td>{{g.name}}</td>
 
 
-                 <td><a [routerLink]="['/group',g.id,'permissions']" class="btn btn-sm btn-primary">Permissions</a></td>
-        <td><a [routerLink]="['/group',g.id,'users']" class="btn btn-default btn-sm">Users </a></td>
+                 <td>
+                   
+                   <a [routerLink]="['/group',g.id,'permissions']" class="btn btn-xs btn-primary">Permissions</a>
+                   <a [routerLink]="['/group',g.id,'users']" class="btn btn-default btn-xs">Users </a>
+                   
+                   </td>
+      
 
 
                 </tr>

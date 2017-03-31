@@ -5,7 +5,7 @@
 		lines: 13, // The number of lines to draw
 		length: 11, // The length of each line
 		width: 5, // The line thickness
-		radius: 17, // The radius of the inner circle
+		radius: 10, // The radius of the inner circle
 		corners: 1, // Corner roundness (0..1)
 		rotate: 0, // The rotation offset
 		color: '#FFF', // #rgb or #rrggbb

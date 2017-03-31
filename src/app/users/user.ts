@@ -19,6 +19,11 @@ export class User{
       //user_type:any;
       id:any;
 
+     //for password change 
+     old_password:any;
+     new_password:any;
+     new_password_again:any;
+     
     
     
     }

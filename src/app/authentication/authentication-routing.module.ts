@@ -8,6 +8,7 @@ import { LoginIndexComponent }   from './login.component';
 
 const routes: Routes = [
   {path:'login',component:LoginIndexComponent},
+ 
 ];
 
 @NgModule({
