@@ -3,16 +3,14 @@ import {Component,OnInit } from '@angular/core';
 //Add the RxJS Observable operators we need in this app
 import '../rxjs-operators';
 
-import {AclGroup,AclPermission} from './group';
-import {Observable} from 'rxjs/Rx';
-import {AclGroupService} from './group.service';
-import { AuthenticationService } from '../authentication/authentication.service';
+import {Group} from './group';
+import {Permission} from '../permissions/permission';
+import {GroupService} from './group.service';
+import {PermissionService} from '../permissions/permission.service';
+
+import { GlobalService } from '../_globals/global.service';
 import {Router,ActivatedRoute,Params} from '@angular/router';
 import {Location} from '@angular/common';
-import 'rxjs/add/operator/switchMap';
-
-declare var jQuery:any;
-declare var notify:any; //notify(message_type,message_heading,message_content)
 
 
 
@@ -24,22 +22,23 @@ declare var notify:any; //notify(message_type,message_heading,message_content)
     color: white;}`
         ],
     templateUrl:'group-permissions.component.html',
-    providers:[AclGroupService,AuthenticationService]
+    providers:[GroupService,GlobalService,PermissionService]
     })
 export class GroupPermissionsComponent implements OnInit {
-    aclGroup=new AclGroup()
-    aclPermission=new AclPermission()
+    group=new Group()
+    permission=new Permission()
 
-    aclPermissions:AclPermission[];
+    permissions:Permission[];
 
-    aclSelectedPermissions:AclPermission[];
-    aclUnSelectedPermissions:AclPermission[];
+    selectedPermissions:Permission[];
+    unSelectedPermissions:Permission[];
 
 
 
   
-    constructor(private aclGroupService:AclGroupService,
-                private authenticationService:AuthenticationService,
+    constructor(private groupService:GroupService,
+                private globalService:GlobalService,
+                private permissionService:PermissionService,
                 private router:Router,
                 private location:Location,
                 private route:ActivatedRoute){}
@@ -52,7 +51,7 @@ export class GroupPermissionsComponent implements OnInit {
           this.route.params.subscribe((params: Params) => {group_id=params['id']});
           this.getSelectedPermissions(group_id);
           this.getUnSelectedPermissions(group_id);
-          this.aclGroup.id=group_id;
+          this.group.id=group_id;
 
 
       }
@@ -65,7 +64,7 @@ export class GroupPermissionsComponent implements OnInit {
 addPermissions(){//add permissions to those on right side from unselected 
 
     let keys=[];
-     for (let p of this.aclGroup.unselectedPermissions){ //get permission ids 
+     for (let p of this.group.unselectedPermissions){ //get permission ids 
        keys.push(p);
     }
    // console.log(keys);
@@ -74,24 +73,25 @@ addPermissions(){//add permissions to those on right side from unselected
     //form new list of unselectedPermissions
 
     //this gets objects that are not select by click 
-    const newArray = this.aclUnSelectedPermissions.filter(obj => !toDelete.has(obj.id));
-    const selectedListArray = this.aclUnSelectedPermissions.filter(obj => toDelete.has(obj.id));
+    const newArray = this.unSelectedPermissions.filter(obj => !toDelete.has(obj.id));
+    const selectedListArray = this.unSelectedPermissions.filter(obj => toDelete.has(obj.id));
     console.log(newArray);
-    this.aclUnSelectedPermissions=newArray; //use this as new list of unselectedPermissions
+    this.unSelectedPermissions=newArray; //use this as new list of unselectedPermissions
    
 
     for (let p of selectedListArray){ //append to selected 
         //console.log(p);
-       this.aclSelectedPermissions.push(p);
+       this.selectedPermissions.push(p);
     }
 
 
 }
 
+
 removePermissions(){//add permissions to those on right side from unselected 
 
     let keys=[];
-     for (let p of this.aclGroup.selectedPermissions){ //get permission ids 
+     for (let p of this.group.selectedPermissions){ //get permission ids 
        keys.push(p);
     }
    // console.log(keys);
@@ -100,15 +100,15 @@ removePermissions(){//add permissions to those on right side from unselected
     //form new list of unselectedPermissions
 
     //this gets objects that are not select by click 
-    const newArray = this.aclSelectedPermissions.filter(obj => !toDelete.has(obj.id));
-    const selectedListArray = this.aclSelectedPermissions.filter(obj => toDelete.has(obj.id));
+    const newArray = this.selectedPermissions.filter(obj => !toDelete.has(obj.id));
+    const selectedListArray = this.selectedPermissions.filter(obj => toDelete.has(obj.id));
     console.log(newArray);
-    this.aclSelectedPermissions=newArray; //use this as new list of unselectedPermissions
+    this.selectedPermissions=newArray; //use this as new list of unselectedPermissions
    
 
     for (let p of selectedListArray){ //append to the left side of unselected 
         //console.log(p);
-       this.aclUnSelectedPermissions.push(p);
+       this.unSelectedPermissions.push(p);
     }
 
 
@@ -116,41 +116,36 @@ removePermissions(){//add permissions to those on right side from unselected
 
     onEditPermissions(){
 
-        console.log(this.aclGroup,
-        this.aclGroup.selectedPermissions,
-        this.aclGroup.unselectedPermissions);
+        
+        this.group.permissions=[];
 
-        this.aclGroup.permissions=[];
-
-        for (let i of this.aclSelectedPermissions){
+        for (let i of this.selectedPermissions){
             //update permissions ids 
             //console.log(i,i.id);
-            this.aclGroup.permissions.push(i.id);
+            this.group.permissions.push(i.id);
         }
 
-        
-         this.authenticationService.showLoader();
-         this.aclGroupService.updateGroup(this.aclGroup).subscribe(
-       response=>(response.data,this.authenticationService.displaySuccessMessage(response)),
-        error=> (this.authenticationService.displayErrors(error)));
+    
+    //if not works use , patch 
+
+         this.groupService.patch(this.group).subscribe(
+       response=>(response.data),
+        error=> (error));
 
     }
     getUnSelectedPermissions(group_id:any){
-         this.authenticationService.showLoader();
-        this.aclGroupService.getPermissions(group_id,'unselected').subscribe(
-       response=>(this.aclUnSelectedPermissions=response.data.results,this.authenticationService.hideLoader()),
-        error=> (this.authenticationService.displayErrors(error)));
+        
+        this.permissionService.getGroupPermissions(group_id,'unassigned').subscribe(
+       response=>(this.unSelectedPermissions=response.data.results),
+        error=> (error));
         }
    
     getSelectedPermissions(group_id:any){
-         this.authenticationService.showLoader();
-        this.aclGroupService.getPermissions(group_id,'selected').subscribe(
-       response=>(this.aclSelectedPermissions=response.data.results,this.authenticationService.hideLoader()),
-        error=> (this.authenticationService.displayErrors(error)));
+        
+        this.permissionService.getGroupPermissions(group_id,'assigned').subscribe(
+       response=>(this.selectedPermissions=response.data.results),
+        error=> (error));
         }
-
-
-
 
     goBack():void{
         this.location.back();

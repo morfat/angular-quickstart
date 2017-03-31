@@ -35,5 +35,12 @@ delete(selectedPermission):Observable<any>{
 
 
 
+getGroupPermissions(group,type){
+    //do not paginate on this 
+      let url=`${this.permissionUrl}?page_size=1000&group=${group}&type=${type}`;
+      return this.globalService.get(url);
+}
+
+
        
 }

@@ -49,8 +49,8 @@
 <div class="form-group">
 <label>Available Permissions </label>
 <select multiple  class="form-control" style="height: 250px;" 
-[(ngModel)]="aclGroup.unselectedPermissions" name="unSelectedPermission[]" >
-<option *ngFor="let p of aclUnSelectedPermissions" [value]="p.id">
+[(ngModel)]="group.unselectedPermissions" name="unSelectedPermission[]" >
+<option *ngFor="let p of unSelectedPermissions" [value]="p.id">
 {{p.name}}
 </option>
 </select>
@@ -64,7 +64,7 @@
 <div class="col-md-12"><hr></div>
 
     <div class="col-md-12">
-       <button type="button" [disabled]="!aclGroup.unselectedPermissions" 
+       <button type="button" [disabled]="!group.unselectedPermissions" 
        class="btn btn-primary btn-block btn-xs" 
 
        (click)="addPermissions()">
@@ -76,7 +76,7 @@
 <div class="col-md-12"><hr></div>
 
     <div class="col-md-12">
-       <button type="button" [disabled]="!aclGroup.selectedPermissions" 
+       <button type="button" [disabled]="!group.selectedPermissions" 
        class="btn btn-primary btn-block btn-xs" (click)="removePermissions()">
      <i class="fa fa-2x fa-arrow-left" aria-hidden="true"></i>
   </button>
@@ -91,8 +91,8 @@
 <div class="form-group">
 <label>Selected Permissions </label>
 <select class="form-control"  style="height: 250px;" 
-[(ngModel)]="aclGroup.selectedPermissions" name="selectedPermission[]" multiple="multiple">
-<option *ngFor="let p of aclSelectedPermissions" [value]="p.id">
+[(ngModel)]="group.selectedPermissions" name="selectedPermission[]" multiple="multiple">
+<option *ngFor="let p of selectedPermissions" [value]="p.id">
 {{p.name}}
 </option>
 </select>
