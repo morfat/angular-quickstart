@@ -31,15 +31,20 @@ export class GlobalService{
 
 //display and hide modals
 public showModal(identifier){
+     console.log("show modal is here");
     jQuery(identifier).modal("show");
 }
 
 public hideModal(identifier){
+    console.log("Close modal is here");
      jQuery(identifier).modal("hide");
 
 }
 //display loaders
-   private showLoader(message='Processing'){ //display loader for process. can pass custom message 
+   private showLoader(message='Processing .. '){ //display loader for process. can pass custom message 
+
+       console.log("show loader here");
+
    //hide any other loader before displaying this 
     if(this.iosLoader){
         this.iosLoader.hide();
@@ -91,17 +96,7 @@ public  displayResponseMessage(response:any){ //if show is false, no message is 
 
               }
 
-/*
-           for (let d of Object.keys(data).map((key)=>data[key]))
-           {
-               if (d.toString().length>1){
-                    message = message + "<br>"+d;
-               }else{
-                   message = message + "<br>"+d[0];
-               }   
-               console.log(data,d); 
-           }
-           */
+
 
         notify("error"," ",message);
     }   
@@ -154,6 +149,7 @@ public getToken(){
 
  private extractData(res: Response){ //this alos closes the loaders ios
         let body=res.json(); 
+        this.iosLoader.hide();//close the loading icon 
         return body || {};
     }
 
@@ -162,7 +158,10 @@ public getToken(){
         //try see how to remove the below in future 
         //let errMsg=(error.message)? error.message:error.status ?
         //`${error.status}-${error.statusText}`: 'Server Error';  
+        // console.log("hide  loader here");
+        this.iosLoader.hide();//close the loading icon 
         return Observable.throw(error);
+       
     }
 
 
@@ -170,33 +169,34 @@ public getToken(){
 //they also start and close the http loaders 
     public get(url:any){
         this.showLoader();
-        return this.http.get(url,this.getOptions()).map(this.extractData).catch(this.handleError).finally(this.iosLoader.hide());
+        return this.http.get(url,this.getOptions()).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
     }
   
    public post(url:any,data:any){
         this.showLoader();
         return this.http.post(url,JSON.stringify(data),this.getOptions()
-        ).map(this.extractData).catch(this.handleError).finally(this.iosLoader.hide());
+        ).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
    }
          
   public put(url:any,data:any){
          this.showLoader();
          return this.http.put(url,JSON.stringify(data),this.getOptions()
-        ).map(this.extractData,).catch(this.handleError).finally(this.iosLoader.hide());
+        ).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
      }
 
 
   public patch(url:any,data:any){
          this.showLoader();
          return this.http.patch(url,JSON.stringify(data),this.getOptions()
-        ).map(this.extractData).catch(this.handleError).do(this.iosLoader.hide()).finally(this.iosLoader.hide());
+        ).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
      }
 
  public delete(url:any){
       this.showLoader();
-      return this.http.delete(url,this.getOptions()).catch(this.handleError).finally(this.iosLoader.hide());
- }
+      return this.http.delete(url,this.getOptions()).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
 
 
 }
+}
+
 
