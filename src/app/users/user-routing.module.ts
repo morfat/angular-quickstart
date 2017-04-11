@@ -10,9 +10,13 @@ import { ChangePasswordComponent }   from './change-password.component';
 
 import { ResetPasswordComponent }   from './reset-password.component';
 
+//guards
+import {AuthGuard} from '../_guards/auth.guard';
+
+
 const routes: Routes = [
-  {path:'users',component:UserListComponent},
-   {path:'change-password',component:ChangePasswordComponent},
+  {path:'users',component:UserListComponent,canActivate:[AuthGuard]},
+   {path:'change-password',component:ChangePasswordComponent,canActivate:[AuthGuard]},
     {path:'reset-password',component:ResetPasswordComponent},
   ];
 

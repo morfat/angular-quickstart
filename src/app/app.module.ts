@@ -25,6 +25,9 @@ import { FooterComponent }   from './_navigations/footer.component';
 //import providers
 import {GlobalService} from './_globals/global.service';
 
+//guards
+import {AuthGuard} from './_guards/auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +48,7 @@ import {GlobalService} from './_globals/global.service';
     DashboardModule,//this should be always the last module 
     
   ],
-  providers: [GlobalService],
+  providers: [GlobalService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

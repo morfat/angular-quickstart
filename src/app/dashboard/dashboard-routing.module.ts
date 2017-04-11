@@ -4,9 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 //components
 import { DashboardIndexComponent }   from './dashboard.component';
 
+//guards
+import {AuthGuard} from '../_guards/auth.guard';
+
 
 const routes: Routes = [
-  {path:'dashboard',component:DashboardIndexComponent},
+  {path:'dashboard',component:DashboardIndexComponent,canActivate:[AuthGuard]},
  
 
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },//empy

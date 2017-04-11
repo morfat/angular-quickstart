@@ -10,11 +10,14 @@ import {GroupPermissionsComponent} from './group-permissions.component';
 //import { PaginationComponent }   from '../pagination/pagination.component';
 import { PaginationModule }   from '../pagination/pagination.module';
 
+//guards
+import {AuthGuard} from '../_guards/auth.guard';
+
 
 const routes: Routes = [
-  {path:'group/:id/users',component:GroupUsersComponent},
-  {path:'group/:id/permissions',component:GroupPermissionsComponent},
-  {path:'groups',component:GroupListComponent},
+  {path:'group/:id/users',component:GroupUsersComponent,canActivate:[AuthGuard]},
+  {path:'group/:id/permissions',component:GroupPermissionsComponent,canActivate:[AuthGuard]},
+  {path:'groups',component:GroupListComponent,canActivate:[AuthGuard]},
 
   ];
 

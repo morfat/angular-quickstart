@@ -8,9 +8,12 @@ import { PermissionListComponent }   from './permission.component';
 //import { PaginationComponent }   from '../pagination/pagination.component';
 import { PaginationModule }   from '../pagination/pagination.module';
 
+//guards
+import {AuthGuard} from '../_guards/auth.guard';
+
 
 const routes: Routes = [
-  {path:'permissions',component:PermissionListComponent},
+  {path:'permissions',component:PermissionListComponent,canActivate:[AuthGuard]},
   ];
 
 @NgModule({
