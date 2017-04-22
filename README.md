@@ -7,9 +7,15 @@ You can use this quickstart app with https://github.com/morfat/django-rest-quick
 #Guide
 
 1. Clone the project.
-2. Run npm install 
+2. install node 7 from here https://nodejs.org/en/download/package-manager/
+3. install angular cli globally.  sudo npm install -g @angular/cli 
+2. in your project root folder run npm install 
 3. change _globals/settings.ts file to suit your needs
+4. change the /src/environments files to suit you api needs
 4. Run ng serve
+
+5. Connect with  https://github.com/morfat/django-rest-quickstart.git
+6. enjoy
 
 
 
