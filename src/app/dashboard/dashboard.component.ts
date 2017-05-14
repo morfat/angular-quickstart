@@ -1,7 +1,6 @@
 import { Component ,OnInit} from '@angular/core';
 import {GlobalService} from '../_globals/global.service';
 
-import {Settings} from '../_globals/settings';
 
 
 @Component({

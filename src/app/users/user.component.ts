@@ -1,6 +1,5 @@
 import { Component ,OnInit} from '@angular/core';
 import {GlobalService} from '../_globals/global.service';
-import {Settings} from '../_globals/settings';
 
 import {UserService} from './user.service';
 import {User} from './user';
@@ -52,8 +51,7 @@ export class UserListComponent implements OnInit {
   }
 
   private createUser(){
-    console.log(this.user);
-
+ 
     this.user.password="testpass";
     this.user.created_by=this.globalService.getUser().user.email;
     this.userService.create(this.user).subscribe(

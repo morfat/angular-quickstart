@@ -1,6 +1,5 @@
 import { Component ,OnInit} from '@angular/core';
 import {GlobalService} from '../_globals/global.service';
-import {Settings} from '../_globals/settings';
 
 import {PermissionService} from './permission.service';
 import {ContentTypeService} from '../content_types/content_type.service';
