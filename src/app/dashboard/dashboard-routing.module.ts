@@ -11,7 +11,6 @@ import {AuthGuard} from '../_guards/auth.guard';
 const routes: Routes = [
   {path:'dashboard',component:DashboardIndexComponent,canActivate:[AuthGuard]},
  
-
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },//empy
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },//any other
 

@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Router,CanActivate} from '@angular/router';
 import {GlobalService} from '../_globals/global.service';
 
+import {environment} from  '../../environments/environment';
+
 
 @Injectable()
 export class AuthGuard implements CanActivate{
@@ -16,7 +18,7 @@ export class AuthGuard implements CanActivate{
             return true;
             }
         //not logged in so redirect to login page
-        this.router.navigate(['/login']);
+        this.router.navigate([environment.appLoginUrl]);
         return false;
         }
     }

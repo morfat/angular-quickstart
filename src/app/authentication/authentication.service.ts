@@ -3,6 +3,7 @@ import {GlobalService} from '../_globals/global.service';
 import {Auth} from './auth';
 
 import {Observable} from 'rxjs/Observable';
+import {environment} from  '../../environments/environment';
 
 
 @Injectable()
@@ -32,7 +33,7 @@ handleLogin(response:any){
                
                if (!this.globalService.getUser().user.is_staff || !this.globalService.getUser().user.is_superuser){ 
                    this.globalService.clearUser();
-                   this.globalService.navigate(['/login']);
+                   this.globalService.navigate([environment.appLoginUrl]);
                 }
 
                else if (!this.globalService.getUser().user.is_password_changed){ 
