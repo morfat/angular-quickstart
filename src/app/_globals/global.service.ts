@@ -4,7 +4,9 @@ this is globally accessed for data
 
 import {Injectable} from '@angular/core';
 
-import {Settings} from './settings';
+
+//import environment to use settings
+import {environment} from  '../../environments/environment';
 
 import {Http,Headers,Response,RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -31,19 +33,19 @@ export class GlobalService{
 
 //display and hide modals
 public showModal(identifier){
-     console.log("show modal is here");
+    // console.log("show modal is here");
     jQuery(identifier).modal("show");
 }
 
 public hideModal(identifier){
-    console.log("Close modal is here");
+    //console.log("Close modal is here");
      jQuery(identifier).modal("hide");
 
 }
 //display loaders
    private showLoader(message='Processing .. '){ //display loader for process. can pass custom message 
 
-       console.log("show loader here");
+      // console.log("show loader here");
 
    //hide any other loader before displaying this 
     if(this.iosLoader){
@@ -75,7 +77,7 @@ public  displayResponseMessage(response:any){ //if show is false, no message is 
     }
     else if(response.status===401){//token expired. 
         notify("warning"," ","Session Expired. Please login again.");
-        this.router.navigate([Settings.APP_LOGIN_URL]);
+        this.router.navigate([environment.appLoginUrl]);
 
     }
     
@@ -89,7 +91,7 @@ public  displayResponseMessage(response:any){ //if show is false, no message is 
 
            for (let key in data) {
                    let value = data[key];
-                console.log(data,key,value);
+                //console.log(data,key,value);
 
                   message = message + "<br>: "+key.replace('_'," ").toUpperCase()+"=> "+value;
 
@@ -105,17 +107,17 @@ public  displayResponseMessage(response:any){ //if show is false, no message is 
 
   /* make global functions here */
 public setUser(user:any){
-    localStorage.setItem('_'+Settings.APP_NAME+'User', JSON.stringify(user));
+    localStorage.setItem('_'+environment.appCode+'User', JSON.stringify(user));
 }
 
 public getUser(){
 
-    return JSON.parse(localStorage.getItem('_'+Settings.APP_NAME+'User'));
+    return JSON.parse(localStorage.getItem('_'+environment.appCode+'User'));
 }
 
 public clearUser(){
 
-    return localStorage.removeItem('_'+Settings.APP_NAME+'User');
+    return localStorage.removeItem('_'+environment.appCode+'User');
 }
 
 
@@ -127,7 +129,7 @@ public navigate(url){
 
 public getUrl(val){
     //when given sub url, return absolute url for API
-   return Settings.BASE_API_URL+val;
+   return environment.apiUrl+val;
 }
 
 public getToken(){

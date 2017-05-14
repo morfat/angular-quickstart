@@ -7,8 +7,9 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://localhost:8001', //loal dev url 
-
-  appName:'Admin Dev'
+   apiUrl:'http://localhost:8000',  
+   appName:' Angular API Local ',
+   appCode:'AQ', //should be unique accross apps
+   appLoginUrl:'/login'
 
 };
