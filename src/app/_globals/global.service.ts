@@ -180,6 +180,14 @@ public getToken(){
         ).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
    }
          
+
+public postWithNoAuth(url:any,data:any){
+        this.showLoader();
+        return this.http.post(url,JSON.stringify(data),new RequestOptions({headers:new  Headers({'Content-Type':'application/json',})})
+        ).map(response=>this.extractData(response)).catch(error=>this.handleError(error));
+   }
+
+   
   public put(url:any,data:any){
          this.showLoader();
          return this.http.put(url,JSON.stringify(data),this.getOptions()

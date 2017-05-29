@@ -32,6 +32,10 @@ create(user):Observable<any>{
     return this.globalService.post(this.userUrl,user);
    }
 
+createWithNoAuth(user):Observable<any>{
+    return this.globalService.postWithNoAuth(this.userUrl,user);
+   }
+
 edit(selectedUser):Observable<any>{
     
     let url=`${this.userUrl}${selectedUser.id}/`;
